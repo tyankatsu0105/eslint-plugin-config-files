@@ -16,5 +16,6 @@ module.exports = {
   ],
   rules: {
     "func-style": ["error", "expression"],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
   },
 };
