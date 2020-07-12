@@ -13,12 +13,26 @@ const tester = new RuleTester({
 tester.run("order-options", rule, {
   valid: [
     {
+      /**
+       * ignore file if filename is unexpected
+       * @see configFilenames.ts
+       */
       code: `
     module.exports = {
-      plugins: ["some-plugin"],
-      extends: [
-        "plugin:some-plugin/recommended",
-      ],
+      a: [],
+      b: [],
+    };
+    `,
+      filename: ".foobar.js",
+    },
+    {
+      /**
+       * run rule if filename is expected and matched
+       */
+      code: `
+    module.exports = {
+      plugins: [],
+      extends: [],
     };
     `,
       filename: ".eslintrc.js",
@@ -28,35 +42,18 @@ tester.run("order-options", rule, {
     {
       code: `
       module.exports = {
-        extends: [
-          "plugin:some-plugin/recommended",
-        ],
-        rules: {},
-        parser: 'aaaaa',
-        plugins: ["some-plugin"],
-        aaa: 'aaaaa',
-        bbb: 'bbbbb',
+        extends: [],
+        plugins: [],
       };
       `,
       output: `
       module.exports = {
-        rules: {},
-        plugins: ["some-plugin"],
-        extends: [
-          "plugin:some-plugin/recommended",
-        ],
-        parser: 'aaaaa',
-        aaa: 'aaaaa',
-        bbb: 'bbbbb',
+        plugins: [],
+        extends: [],
       };
       `,
       filename: "/hogehoge/.eslintrc.js",
-      errors: [
-        { messageId: "orderOptions" },
-        { messageId: "orderOptions" },
-        { messageId: "orderOptions" },
-        { messageId: "orderOptions" },
-      ],
+      errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
     },
   ],
 });

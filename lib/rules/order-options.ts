@@ -17,15 +17,15 @@ import {
 // Helpers
 // ------------------------------------------------------------------------------
 
-type OrderType<
-  T extends keyof typeof configOptionKeys
-> = typeof configOptionKeys[T][number][];
+type OrderType<T extends keyof typeof configOptionKeys> =
+  | typeof configOptionKeys[T][number][]
+  | string[];
 
 type Order = OrderType<"eslint"> | OrderType<"stylelint">;
 
 type FilenamesType<T extends keyof typeof configFilenames> =
-  | string[]
-  | typeof configFilenames[T][number][];
+  | typeof configFilenames[T][number][]
+  | string[];
 
 type Filenames = FilenamesType<"eslint"> | FilenamesType<"stylelint">;
 
@@ -178,12 +178,43 @@ export = createRule<[Options], MessageIds>({
     type: "layout",
     messages: {
       orderOptions:
-        "'{{ currentOptionName }}' should not here. Expect order is '{{ expectOrder }}'",
+        "'{{ currentOptionName }}' should not here. Expect order is [{{ expectOrder }}]",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          override: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                order: {
+                  type: "array",
+                  items: {
+                    anyOf: [{ type: "string" }],
+                  },
+                },
+                filenames: {
+                  type: "array",
+                  items: {
+                    anyOf: [{ type: "string" }],
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
   },
   defaultOptions,
-  create(context, [{ override }]) {
+  create(context) {
+    const override =
+      context.options[0]?.override !== undefined
+        ? [...context.options[0].override, ...defaultOptions[0].override]
+        : defaultOptions[0].override;
+
     const { filename } = getFilename(context.getFilename());
 
     const overrideItem = getOverrideItem(override, filename);
@@ -223,8 +254,7 @@ export = createRule<[Options], MessageIds>({
               },
               fix(fixer) {
                 const text = sourceCode.text.slice(
-                  expectPropertiesOrder[index].range[0],
-                  expectPropertiesOrder[index].range[1]
+                  ...expectPropertiesOrder[index].range
                 );
                 return fixer.replaceTextRange(item.range, text);
               },
