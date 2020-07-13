@@ -12,11 +12,11 @@ const tester = new RuleTester({
 
 tester.run("order-options", rule, {
   valid: [
+    /**
+     * ignore file if filename is unexpected
+     * @see configFilenames.ts
+     */
     {
-      /**
-       * ignore file if filename is unexpected
-       * @see configFilenames.ts
-       */
       code: `
     module.exports = {
       a: [],
@@ -25,10 +25,11 @@ tester.run("order-options", rule, {
     `,
       filename: ".foobar.js",
     },
+
+    /**
+     * filename is expected
+     */
     {
-      /**
-       * run rule if filename is expected and matched
-       */
       code: `
     module.exports = {
       plugins: [],
@@ -37,8 +38,83 @@ tester.run("order-options", rule, {
     `,
       filename: ".eslintrc.js",
     },
+
+    /**
+     * override order by options. Both order and filenames should be filled.
+     */
+    {
+      code: `
+    module.exports = {
+      extends: [],
+      plugins: [],
+    };
+    `,
+      options: [
+        {
+          override: [
+            { order: ["extends", "plugins"], filenames: [".eslintrc.js"] },
+          ],
+        },
+      ],
+      filename: ".eslintrc.js",
+    },
+
+    /**
+     * eslint
+     */
+    {
+      code: `
+    module.exports = {
+      plugins: [],
+      extends: [],
+    };
+    `,
+      filename: ".eslintrc.js",
+    },
+
+    /**
+     * stylelint
+     */
+    {
+      code: `
+    module.exports = {
+      defaultSeverity: '',
+      processors: [],
+    };
+    `,
+      filename: ".stylelintrc.js",
+    },
+
+    /**
+     * prettier 1
+     */
+    {
+      code: `
+    module.exports = {
+      useTabs: true,
+      singleQuote: true,
+    };
+    `,
+      filename: ".prettierrc.js",
+    },
+
+    /**
+     * prettier 2
+     */
+    {
+      code: `
+    module.exports = {
+      useTabs: true,
+      singleQuote: true,
+    };
+    `,
+      filename: "prettierrc.config.js",
+    },
   ],
   invalid: [
+    /**
+     * eslint
+     */
     {
       code: `
       module.exports = {
@@ -52,8 +128,158 @@ tester.run("order-options", rule, {
         extends: [],
       };
       `,
-      filename: "/hogehoge/.eslintrc.js",
+      filename: ".eslintrc.js",
       errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
+    },
+
+    /**
+     * stylelint
+     */
+    {
+      code: `
+      module.exports = {
+        extends: [],
+        rules: {},
+      };
+      `,
+      output: `
+      module.exports = {
+        rules: {},
+        extends: [],
+      };
+      `,
+      filename: ".stylelintrc.js",
+      errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
+    },
+
+    /**
+     * prettier 1
+     */
+    {
+      code: `
+      module.exports = {
+        useTabs: true,
+        tabWidth: 2,
+      };
+      `,
+      output: `
+      module.exports = {
+        tabWidth: 2,
+        useTabs: true,
+      };
+      `,
+      filename: ".prettierrc.js",
+      errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
+    },
+
+    /**
+     * prettier 1
+     */
+    {
+      code: `
+      module.exports = {
+        useTabs: true,
+        tabWidth: 2,
+      };
+      `,
+      output: `
+      module.exports = {
+        tabWidth: 2,
+        useTabs: true,
+      };
+      `,
+      filename: "prettier.config.js",
+      errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
+    },
+
+    /**
+     * override filenames option
+     */
+    {
+      code: `
+      module.exports = {
+        tabWidth: 2,
+        printWidth: 80,
+        useTabs: true,
+      };
+      `,
+      output: `
+      module.exports = {
+        printWidth: 80,
+        tabWidth: 2,
+        useTabs: true,
+      };
+      `,
+      filename: ".override.prettier.config.js",
+      options: [
+        {
+          override: [
+            {
+              order: [
+                "printWidth",
+                "tabWidth",
+                "useTabs",
+                "semi",
+                "singleQuote",
+                "quoteProps",
+                "jsxSingleQuote",
+                "trailingComma",
+                "bracketSpacing",
+                "jsxBracketSameLine",
+                "arrowParens",
+                "rangeStart",
+                "rangeEnd",
+                "parser",
+                "filepath",
+                "requirePragma",
+                "insertPragma",
+                "proseWrap",
+                "htmlWhitespaceSensitivity",
+                "vueIndentScriptAndStyle",
+                "endOfLine",
+              ],
+              filenames: [".override.prettier.config.js"],
+            },
+          ],
+        },
+      ],
+      errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
+    },
+
+    /**
+     * override order option
+     */
+    {
+      code: `
+      module.exports = {
+        printWidth: 80,
+        tabWidth: 2,
+        useTabs: true,
+      };
+      `,
+      output: `
+      module.exports = {
+        tabWidth: 2,
+        useTabs: true,
+        printWidth: 80,
+      };
+      `,
+      filename: "prettier.config.js",
+      options: [
+        {
+          override: [
+            {
+              order: ["tabWidth", "useTabs", "printWidth"],
+              filenames: ["prettier.config.js", ".prettierrc.js"],
+            },
+          ],
+        },
+      ],
+      errors: [
+        { messageId: "orderOptions" },
+        { messageId: "orderOptions" },
+        { messageId: "orderOptions" },
+      ],
     },
   ],
 });

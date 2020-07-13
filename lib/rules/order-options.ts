@@ -21,13 +21,19 @@ type OrderType<T extends keyof typeof configOptionKeys> =
   | typeof configOptionKeys[T][number][]
   | string[];
 
-type Order = OrderType<"eslint"> | OrderType<"stylelint">;
+type Order =
+  | OrderType<"eslint">
+  | OrderType<"stylelint">
+  | OrderType<"prettier">;
 
 type FilenamesType<T extends keyof typeof configFilenames> =
   | typeof configFilenames[T][number][]
   | string[];
 
-type Filenames = FilenamesType<"eslint"> | FilenamesType<"stylelint">;
+type Filenames =
+  | FilenamesType<"eslint">
+  | FilenamesType<"stylelint">
+  | FilenamesType<"prettier">;
 
 const setOrder = (key: keyof typeof configOptionKeys) => [
   ...configOptionKeys[key],
@@ -156,6 +162,10 @@ const defaultOptions: [Options] = [
         order: setOrder("stylelint"),
         filenames: setFilenames("stylelint"),
       },
+      {
+        order: setOrder("prettier"),
+        filenames: setFilenames("prettier"),
+      },
     ],
   },
 ];
@@ -178,7 +188,7 @@ export = createRule<[Options], MessageIds>({
     type: "layout",
     messages: {
       orderOptions:
-        "'{{ currentOptionName }}' should not here. Expect order is [{{ expectOrder }}]",
+        "'{{ currentOptionName }}' should not be here. Expect order is [{{ expectOrder }}]",
     },
     schema: [
       {

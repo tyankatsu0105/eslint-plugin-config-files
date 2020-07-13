@@ -1,1 +1,3 @@
 tsconfig.json
+!.prettierrc.js
+!.stylelintrc.js
