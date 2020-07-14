@@ -19,7 +19,8 @@ import {
 
 type OrderType<T extends keyof typeof configOptionKeys> =
   | typeof configOptionKeys[T][number][]
-  | string[];
+  | string[]
+  | T;
 
 type Order =
   | OrderType<"eslint">
@@ -28,7 +29,8 @@ type Order =
 
 type FilenamesType<T extends keyof typeof configFilenames> =
   | typeof configFilenames[T][number][]
-  | string[];
+  | string[]
+  | T;
 
 type Filenames =
   | FilenamesType<"eslint">
@@ -60,10 +62,41 @@ const getProperties = (node: TSESTree.ObjectExpression) => {
 };
 
 /**
+ * Get scanned option's override item
+ */
+const getScannedOverrideItem = (override: Options["override"]) =>
+  override.map((item) => {
+    let newItem: Options["override"][number] = { ...item };
+    /**
+     * @example
+     * filenames: 'prettier'
+     * => filenames: ['.prettierrc.js', 'prettier.config.js']
+     */
+    if (typeof item.order === "string") {
+      newItem = { ...newItem, order: [...configOptionKeys[item.order]] };
+    }
+
+    /**
+     * @example
+     * order: 'prettier'
+     * => order: ['printWidth', ...]
+     */
+    if (typeof item.filenames === "string") {
+      newItem = { ...newItem, filenames: [...configFilenames[item.filenames]] };
+    }
+
+    return newItem;
+  });
+
+/**
  * Get override item if match param's filename and override item's filename
  */
 const getOverrideItem = (override: Options["override"], filename: string) =>
-  override.find((item) => item.filenames.some((f) => f === filename));
+  getScannedOverrideItem(override).find((item) => {
+    if (typeof item.filenames === "string") return;
+
+    return item.filenames.some((f) => f === filename);
+  });
 
 /**
  * Get array that includes property info
@@ -72,7 +105,7 @@ const getPropertiesInfo = (
   properties: ReturnType<typeof getProperties>["properties"]
 ) => {
   const propertiesInfo = properties.map((property, index) => {
-    if (property.key.type !== AST_NODE_TYPES.Identifier) return;
+    if (property.key.type !== AST_NODE_TYPES.Identifier) return undefined;
 
     return {
       node: property,
@@ -102,8 +135,12 @@ const getExpectPropertiesOrder = (
   for (const property of properties) {
     if (property.key.type !== AST_NODE_TYPES.Identifier) continue;
 
+    if (typeof overrideItem.order === "string") {
+      overrideItem.order = [...configOptionKeys[overrideItem.order]];
+    }
+
     const index = overrideItem.order.findIndex((orderItem) => {
-      if (property.key.type !== AST_NODE_TYPES.Identifier) return;
+      if (property.key.type !== AST_NODE_TYPES.Identifier) return undefined;
       return orderItem === property.key.name;
     });
 
@@ -140,6 +177,7 @@ const getExpectPropertiesOrder = (
     }),
   };
 };
+
 // ------------------------------------------------------------------------------
 // Settings of createRule
 // ------------------------------------------------------------------------------
@@ -200,16 +238,30 @@ export = createRule<[Options], MessageIds>({
               type: "object",
               properties: {
                 order: {
-                  type: "array",
-                  items: {
-                    anyOf: [{ type: "string" }],
-                  },
+                  anyOf: [
+                    {
+                      type: "string",
+                    },
+                    {
+                      type: "array",
+                      items: {
+                        anyOf: [{ type: "string" }],
+                      },
+                    },
+                  ],
                 },
                 filenames: {
-                  type: "array",
-                  items: {
-                    anyOf: [{ type: "string" }],
-                  },
+                  anyOf: [
+                    {
+                      type: "string",
+                    },
+                    {
+                      type: "array",
+                      items: {
+                        anyOf: [{ type: "string" }],
+                      },
+                    },
+                  ],
                 },
               },
             },

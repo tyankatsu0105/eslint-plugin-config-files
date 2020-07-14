@@ -281,5 +281,37 @@ tester.run("order-options", rule, {
         { messageId: "orderOptions" },
       ],
     },
+
+    /**
+     * user can set string for order and filenames
+     */
+    {
+      code: `
+      module.exports = {
+        tabWidth: 2,
+        printWidth: 80,
+        useTabs: true,
+      };
+      `,
+      output: `
+      module.exports = {
+        printWidth: 80,
+        tabWidth: 2,
+        useTabs: true,
+      };
+      `,
+      filename: ".eslintrc.js",
+      options: [
+        {
+          override: [
+            {
+              order: "prettier",
+              filenames: "eslint",
+            },
+          ],
+        },
+      ],
+      errors: [{ messageId: "orderOptions" }, { messageId: "orderOptions" }],
+    },
   ],
 });

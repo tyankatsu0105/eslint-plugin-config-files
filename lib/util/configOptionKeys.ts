@@ -5,12 +5,12 @@
 /**
  * @see
  */
-const eslintOptionKeys = ["rules", "plugins", "extends"] as const;
+const eslint = ["rules", "plugins", "extends"] as const;
 
 /**
  * @see https://stylelint.io/user-guide/configure
  */
-const stylelintOptionKeys = [
+const stylelint = [
   "rules",
   "defaultSeverity",
   "extends",
@@ -22,7 +22,7 @@ const stylelintOptionKeys = [
 /**
  * @see https://prettier.io/docs/en/options.html
  */
-const prettierOptionKeys = [
+const prettier = [
   "printWidth",
   "tabWidth",
   "useTabs",
@@ -47,7 +47,7 @@ const prettierOptionKeys = [
 ] as const;
 
 export const configOptionKeys = {
-  eslint: eslintOptionKeys,
-  stylelint: stylelintOptionKeys,
-  prettier: prettierOptionKeys,
-};
+  eslint,
+  stylelint,
+  prettier,
+} as const;

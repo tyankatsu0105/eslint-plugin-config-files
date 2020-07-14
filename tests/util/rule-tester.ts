@@ -15,4 +15,3 @@ export class RuleTester extends TSESLint.RuleTester {
     });
   }
 }
-/* eslint-enable */

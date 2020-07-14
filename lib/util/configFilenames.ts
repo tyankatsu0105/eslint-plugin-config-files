@@ -1,5 +1,11 @@
+const eslint = [".eslintrc.js"] as const;
+
+const stylelint = [".stylelintrc.js"] as const;
+
+const prettier = [".prettierrc.js", "prettier.config.js"] as const;
+
 export const configFilenames = {
-  eslint: [".eslintrc.js"],
-  stylelint: [".stylelintrc.js"],
-  prettier: [".prettierrc.js", "prettier.config.js"],
+  eslint,
+  stylelint,
+  prettier,
 } as const;
