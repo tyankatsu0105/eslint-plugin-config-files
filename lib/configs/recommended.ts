@@ -1,6 +1,6 @@
 export = {
   extends: require.resolve("./base"),
   rules: {
-    "@config/order-options": "warn",
+    "config-files/order-options": "warn",
   },
 };
