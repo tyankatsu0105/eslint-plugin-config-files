@@ -1,19 +1,20 @@
 {
-  "name": "eslint-plugin-config",
+  "name": "eslint-plugin-config-files",
   "version": "0.0.0",
   "description": "ESLint rules for config files",
   "keywords": [
     "eslint",
     "eslintplugin",
-    "typescript"
+    "stylelint",
+    "prettier"
   ],
-  "homepage": "https://github.com/tyankatsu0105/eslint-plugin-config#readme",
+  "homepage": "https://github.com/tyankatsu0105/eslint-plugin-config-files#readme",
   "bugs": {
-    "url": "https://github.com/tyankatsu0105/eslint-plugin-config/issues"
+    "url": "https://github.com/tyankatsu0105/eslint-plugin-config-files/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tyankatsu0105/eslint-plugin-config.git"
+    "url": "git+https://github.com/tyankatsu0105/eslint-plugin-config-files.git"
   },
   "license": "MIT",
   "author": "tyankatsu <frips.ryilsufupe+dev@gmail.com> (https://tyankatsu.netlify.com/)",

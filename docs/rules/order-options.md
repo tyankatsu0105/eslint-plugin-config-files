@@ -1,6 +1,6 @@
-# config/order-options
+# config-files/order-options
 
-- ⚙️ This rule is included in "plugin:config/recommended".
+- ⚙️ This rule is included in "plugin:config-files/recommended".
 - 🔧 The `--fix` option on the command line can automatically fix some of the problems reported by this rule.
 
 ## 📖 Rule Details
@@ -15,7 +15,7 @@ enforce ordering of options
 ### 👎
 
 ```js
-/*eslint config/order-options: "error"*/
+/*eslint config-files/order-options: "error"*/
 
 // .eslintrc.js
 
@@ -29,7 +29,7 @@ module.exports = {
 ### 👍
 
 ```js
-/*eslint config/order-options: "error"*/
+/*eslint config-files/order-options: "error"*/
 
 // .eslintrc.js
 
@@ -46,7 +46,7 @@ module.exports = {
 ```json
 {
   "rules": {
-    "config/order-options": [
+    "config-files/order-options": [
       "error",
       {
         "override": [
@@ -62,7 +62,7 @@ module.exports = {
 
 {
   "rules": {
-    "config/order-options": [
+    "config-files/order-options": [
       "error",
       {
         "override": [
@@ -79,6 +79,6 @@ module.exports = {
 
 - `override` (`object[]`) ... Override the order-options default setting.
   - `order` (`string[] | 'eslint', 'stylelint', 'prettier'`) ... Specify the ordering of config's options key.
-    - Default ... See [](https://github.com/tyankatsu0105/eslint-plugin-config/blob/master/lib/util/configOptionKeys.ts)
+    - Default ... See [](https://github.com/tyankatsu0105/eslint-plugin-config-files/blob/master/lib/util/configOptionKeys.ts)
   - `filenames` (`string[] | 'eslint', 'stylelint', 'prettier'`) ... Specify the filenames that apply order.
-    - Default ... See [](https://github.com/tyankatsu0105/eslint-plugin-config/blob/master/lib/util/configFilenames.ts)
+    - Default ... See [](https://github.com/tyankatsu0105/eslint-plugin-config-files/blob/master/lib/util/configFilenames.ts)

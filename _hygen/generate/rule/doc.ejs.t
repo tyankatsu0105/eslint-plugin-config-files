@@ -1,7 +1,7 @@
 ---
 to: docs/rules/<%= name %>.md
 ---
-# config/<%= name %>
+# config-files/<%= name %>
 
 ## 📖 Rule Details
 
@@ -10,14 +10,14 @@ to: docs/rules/<%= name %>.md
 ### 👎
 
 ```ts
-/*eslint config/<%= name %>: "error"*/
+/*eslint config-files/<%= name %>: "error"*/
 
 ```
 
 ### 👍
 
 ```ts
-/*eslint config/<%= name %>: "error"*/
+/*eslint config-files/<%= name %>: "error"*/
 
 ```
 
@@ -26,7 +26,7 @@ to: docs/rules/<%= name %>.md
 ```json
 {
   "rules": {
-    "config/<%= name %>": [
+    "config-files/<%= name %>": [
       "error",
       { "prefer": "React.FC" }
     ]
