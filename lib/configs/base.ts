@@ -2,5 +2,5 @@ export = {
   env: {
     node: true,
   },
-  plugins: ["config"],
+  plugins: ["config-files"],
 };
