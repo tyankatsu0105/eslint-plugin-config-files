@@ -4,6 +4,6 @@
 
 ```js
 module.exports = {
-  extends: ["plugin:config/recommended"],
+  extends: ["plugin:config-files/recommended"],
 };
 ```
