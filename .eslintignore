@@ -1,1 +1,4 @@
 tsconfig.json
+!.prettierrc.js
+!.stylelintrc.js
+!.hogehogerc.js
