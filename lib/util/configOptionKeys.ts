@@ -3,20 +3,36 @@
  */
 
 /**
- * @see
+ * @see https://github.com/eslint/eslint/blob/master/conf/config-schema.js
+ * @see https://github.com/eslint/eslint/blob/master/lib/shared/types.js - ConfigData
  */
-const eslint = ["rules", "plugins", "extends"] as const;
+const eslint = [
+  "root",
+  "ignorePatterns",
+  "env",
+  "globals",
+  "parser",
+  "parserOptions",
+  "noInlineConfig",
+  "processor",
+  "plugins",
+  "extends",
+  "settings",
+  "rules",
+  "overrides",
+  "reportUnusedDisableDirectives",
+] as const;
 
 /**
  * @see https://stylelint.io/user-guide/configure
  */
 const stylelint = [
-  "rules",
-  "defaultSeverity",
-  "extends",
-  "plugins",
-  "processors",
   "ignoreFiles",
+  "processors",
+  "plugins",
+  "extends",
+  "defaultSeverity",
+  "rules",
 ] as const;
 
 /**
