@@ -78,8 +78,8 @@ tester.run("order-options", rule, {
     {
       code: `
     module.exports = {
-      defaultSeverity: '',
       processors: [],
+      defaultSeverity: '',
     };
     `,
       filename: ".stylelintrc.js",
@@ -138,14 +138,14 @@ tester.run("order-options", rule, {
     {
       code: `
       module.exports = {
-        extends: [],
         rules: {},
+        extends: [],
       };
       `,
       output: `
       module.exports = {
-        rules: {},
         extends: [],
+        rules: {},
       };
       `,
       filename: ".stylelintrc.js",
