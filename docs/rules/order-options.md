@@ -51,8 +51,8 @@ module.exports = {
       {
         "override": [
           {
-            order: ["extends", "rules", "plugins"],
-            filenames: [".eslintrc.override.js"]
+            "order": ["extends", "rules", "plugins"],
+            "filenames": [".eslintrc.override.js"]
           }
         ]
       }
@@ -67,8 +67,8 @@ module.exports = {
       {
         "override": [
           {
-            order: "eslint",
-            filenames: [".eslintrc.override.js"]
+            "order": "eslint",
+            "filenames": [".eslintrc.override.js"]
           }
         ]
       }
@@ -79,6 +79,6 @@ module.exports = {
 
 - `override` (`object[]`) ... Override the order-options default setting.
   - `order` (`string[] | 'eslint', 'stylelint', 'prettier'`) ... Specify the ordering of config's options key.
-    - Default ... See [](https://github.com/tyankatsu0105/eslint-plugin-config-files/blob/master/lib/util/configOptionKeys.ts)
+    - Default ... See [configOptionKeys](https://github.com/tyankatsu0105/eslint-plugin-config-files/blob/master/lib/util/configOptionKeys.ts)
   - `filenames` (`string[] | 'eslint', 'stylelint', 'prettier'`) ... Specify the filenames that apply order.
-    - Default ... See [](https://github.com/tyankatsu0105/eslint-plugin-config-files/blob/master/lib/util/configFilenames.ts)
+    - Default ... See [configFilenames](https://github.com/tyankatsu0105/eslint-plugin-config-files/blob/master/lib/util/configFilenames.ts)
