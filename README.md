@@ -1,10 +1,22 @@
-# ESLint Plugin Config Files
+<p align="center"><img width="143px" height="130px" src="https://raw.githubusercontent.com/tyankatsu0105/eslint-plugin-config-files/master/assets/logo.png" alt="ESLint plugin for config files"></p>
 
-[![npm version](https://badge.fury.io/js/eslint-plugin-config-files.svg?style=flat)](https://badge.fury.io/js/eslint-plugin-config-files)
-[![deploy](https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat)](https://github.com/algolia/shipjs)
-[![deploy](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](https://img.shields.io/badge/License-MIT-green.svg)
-
-ESLint plugin for config files (ex .eslintrc.js, .stylelintrc.js)
+<h2 align="center">eslint-plugin-config-files</h2>
+<p align="center">
+  ESLint plugin for config files (ex .eslintrc.js, .stylelintrc.js)
+</p>
+<p align="center">
+  <a title="Current version" href="https://badge.fury.io/js/eslint-plugin-config-files" rel="nofollow">
+    <img src="https://badge.fury.io/js/eslint-plugin-config-files.svg">
+  </a>
+  <a title="deploy" href="https://github.com/algolia/shipjs" rel="nofollow">
+    <img src="https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat">
+  </a>
+  <a title="MIT License" href="[LICENSE](https://opensource.org/licenses/MIT)" rel="nofollow">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg">
+  </a>
+  <br>
+  <br>
+</p>
 
 ## Usage
 
